@@ -11,8 +11,7 @@ set -o pipefail         # Use last non-zero exit code in a pipeline
 echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # Push each tag
-TAG="${IMAGE}:${VERSION}"
-ALL_TAGS="${TAG};${EXTRA_TAGS}"
+ALL_TAGS="${VERSION};${EXTRA_TAGS}"
 for current_tag in ${ALL_TAGS//;/$'\n'}
 do
     if [ "$current_tag" ]; then
