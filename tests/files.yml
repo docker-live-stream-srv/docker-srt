@@ -1,0 +1,30 @@
+---
+schemaVersion: '2.0.0'
+fileExistenceTests:
+  - name: srt-ffplay
+    path: /opt/srt/bin/srt-ffplay
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+
+  - name: srt-file-transmit
+    path: /opt/srt/bin/srt-file-transmit
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+
+  - name: srt-live-transmit
+    path: /opt/srt/bin/srt-live-transmit
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+
+  - name: srt-tunnel
+    path: /opt/srt/bin/srt-tunnel
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+
+  - name: libsrt.a
+    path: /opt/srt/lib/libsrt.a
+    shouldExist: true
+
+  - name: libsrt.so
+    path: /opt/srt/lib/libsrt.so
+    shouldExist: true
