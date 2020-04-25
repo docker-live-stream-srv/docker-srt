@@ -1,0 +1,34 @@
+language: bash
+services: docker
+
+env:
+  global:
+    - IMAGE=livestreamsrv/srt
+  matrix:
+    - VERSION=1.3.4 EXTRA_TAGS="1.3"
+    - VERSION=1.4.1 EXTRA_TAGS="1.4;1;latest"
+
+install:
+  # Pull hadolint tool to check Dockerfile
+  - docker pull hadolint/hadolint
+  # Install test tool https://github.com/GoogleContainerTools/container-structure-test
+  - >
+    curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 
+    && chmod +x container-structure-test-linux-amd64 
+    && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
+
+before_script:
+  - hooks/lint.sh
+  - hooks/build.sh
+
+script:  
+  - hooks/test.sh
+
+after_script:
+  - docker images
+
+deploy:
+  provider: script
+  script: hooks/push.sh
+  on:
+    branch: master

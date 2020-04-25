@@ -1,0 +1,35 @@
+---
+schemaVersion: '2.0.0'
+commandTests:
+  - name: "srt-live-transmit -help"
+    command: "srt-live-transmit"
+    args: ["-help"]
+    exitCode: 0
+    expectedOutput:
+      - "SRT sample application to transmit live streaming\\."
+    expectedError:
+      - "SRT Library version: .*"
+
+  - name: "srt-file-transmit -help"
+    command: "srt-file-transmit"
+    args: ["-help"]
+    exitCode: 0
+    expectedOutput:
+      - "SRT sample application to transmit files\\."
+    expectedError:
+      - "SRT Library version: .*"
+
+  - name: "srt-tunnel"
+    command: "srt-tunnel"
+    args: []
+    exitCode: 1
+    expectedError:
+      - "Usage: srt-tunnel <listen-uri> <call-uri>"
+
+  - name: "srt-ffplay"
+    command: "srt-ffplay"
+    args: []
+    exitCode: 1
+    expectedError:
+      - "ERROR: ffplay not available to call. Please install ffplay first."
+ 
