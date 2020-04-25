@@ -28,3 +28,7 @@ fileExistenceTests:
   - name: libsrt.so
     path: /opt/srt/lib/libsrt.so
     shouldExist: true
+
+  - name: srt.h
+    path: /opt/srt/include/srt/srt.h
+    shouldExist: true

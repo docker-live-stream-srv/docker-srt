@@ -1,8 +1,10 @@
-# Docker image of Secure Reliable Transport (SRT) 
+# SRT library Docker image
 
+Docker image of [Haivision/srt](https://github.com/Haivision/srt).
 
+Maybe you are looking for [docker-srt-live-server](https://github.com/docker-live-stream-srv/docker-srt-live-server), server based on SRT library.
 
-### Key files
+### Builded files
 ```
 /opt/srt/lib/libsrt.so.x.x.x
 /opt/srt/lib/libsrt.so.x
