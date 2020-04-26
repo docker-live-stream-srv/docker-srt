@@ -1,0 +1,47 @@
+###############################
+# Build image
+###############################
+FROM ubuntu:20.04 as build
+
+ARG VERSION=v1.4.1
+ARG DOWNLOAD_URL=https://github.com/Haivision/srt/archive/${VERSION}.tar.gz
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PREFIX=/opt/srt
+ENV LD_LIBRARY_PATH=${PREFIX}/lib
+ENV PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig
+ENV MAKEFLAGS="-j8"
+
+# Build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  bash \
+  build-essential \
+  coreutils \
+  curl \
+  wget \
+  ca-certificates \
+  gcc \
+  cmake \
+  libssl-dev
+
+COPY ./compile.sh /tmp/compile.sh
+
+RUN chmod +x /tmp/compile.sh && \
+    /tmp/compile.sh
+
+###############################
+# Release image
+###############################
+FROM ubuntu:20.04
+
+ENV PREFIX=/opt/srt
+ENV PATH=$PREFIX/bin:$PATH
+ENV LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  bash \
+  ca-certificates && \
+  rm -r /var/lib/apt/lists/*
+
+COPY --from=build /opt/srt /opt/srt
+
+CMD ["bash"]

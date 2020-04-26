@@ -1,6 +1,8 @@
 # SRT library Docker image
 
-Docker image of [Haivision/srt](https://github.com/Haivision/srt).
+Docker image of [Haivision/srt](https://github.com/Haivision/srt) library and utils.
+
+This image can be used as base to build an app using SRT library.
 
 Maybe you are looking for [docker-srt-live-server](https://github.com/docker-live-stream-srv/docker-srt-live-server), server based on SRT library.
 
