@@ -1,0 +1,43 @@
+###############################
+# Build image
+###############################
+FROM alpine:3 as build
+
+ARG VERSION=v1.4.1
+ARG DOWNLOAD_URL=https://github.com/Haivision/srt/archive/${VERSION}.tar.gz
+ENV PREFIX=/opt/srt
+ENV LD_LIBRARY_PATH=${PREFIX}/lib
+ENV PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig
+ENV MAKEFLAGS="-j8"
+
+# Build dependencies
+RUN apk add --no-cache \
+  bash \
+  build-base \
+  coreutils \
+  wget \
+  gcc \
+  cmake \
+  openssl-dev
+
+COPY ./compile.sh /tmp/compile.sh
+
+RUN chmod +x /tmp/compile.sh && \
+    /tmp/compile.sh
+
+###############################
+# Release image
+###############################
+FROM alpine:3
+
+ENV PREFIX=/opt/srt
+ENV PATH=$PREFIX/bin:$PATH
+ENV LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
+
+RUN apk add --no-cache \
+  bash \
+  ca-certificates
+
+COPY --from=build /opt/srt /opt/srt
+
+CMD ["bash"]
