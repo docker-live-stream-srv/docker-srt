@@ -6,9 +6,10 @@ set -o nounset          # Disallow expansion of unset variables
 set -o pipefail         # Use last non-zero exit code in a pipeline
 #set -o xtrace          # Trace the execution of the script (debug)
 
+: "${BASE_IMAGE:?Please set BASE_IMAGE env variable.}"
 : "${IMAGE:?Please set IMAGE env variable.}"
 : "${VERSION:?Please set VERSION env variable.}"
-TAG="${IMAGE}:${VERSION}"
+TAG="${IMAGE}:${BASE_IMAGE}-${VERSION}"
 SCRIPT_DIR=$(dirname "$0")
 SRC_DIR=$(realpath "$SCRIPT_DIR/../")
 TESTS_DIR="${SRC_DIR}/tests"
