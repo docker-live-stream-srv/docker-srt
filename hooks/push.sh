@@ -13,11 +13,6 @@ set -o pipefail         # Use last non-zero exit code in a pipeline
 : "${DOCKER_TOKEN:?Please set DOCKER_TOKEN env variable.}"
 echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-# If tag="alpine-latest", add tag "latest" too
-if [ "${BASE_IMAGE}-${VERSION}" = "alpine-latest" ]; then
-    EXTRA_TAGS="${EXTRA_TAGS:-};latest"
-fi
-
 # All tags = version tag + extra tags
 ALL_TAGS="${VERSION};${EXTRA_TAGS:-}"
 
@@ -27,5 +22,14 @@ do
     if [ "$current_tag" ]; then
         echo "Pushing tag '${IMAGE}:${BASE_IMAGE}-${current_tag}' ..."
         docker push  "${IMAGE}:${BASE_IMAGE}-${current_tag}"
+
+        # If tag="alpine-latest", push to "latest" too
+        if [ "$current_tag" = "alpine-latest" ]; then
+            image_id=$(docker images $current_tag --format "{{.ID}}")
+            docker tag "$image_id" "${IMAGE}:latest"
+            echo "Added tag '${IMAGE}:latest'"
+            echo "Pushing tag '${IMAGE}:latest' ..."
+            docker push "${IMAGE}:latest"
+        fi
     fi
 done
