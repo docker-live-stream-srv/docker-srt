@@ -1,6 +1,9 @@
 # SRT library Docker image
 
 [![Build Status](https://travis-ci.org/docker-live-stream-srv/docker-srt.svg?branch=master)](https://travis-ci.org/docker-live-stream-srv/docker-srt)
+[![](https://img.shields.io/docker/image-size/livestreamsrv/srt/alpine-latest?label=alpine-latest)](https://hub.docker.com/r/livestreamsrv/srt/tags)
+[![](https://img.shields.io/docker/image-size/livestreamsrv/srt/ubuntu-latest?label=ubuntu-latest)](https://hub.docker.com/r/livestreamsrv/srt/tags)
+[![](https://img.shields.io/docker/image-size/livestreamsrv/srt/debian-latest?label=debian-latest)](https://hub.docker.com/r/livestreamsrv/srt/tags)
 
 
 Docker image of [Haivision/srt](https://github.com/Haivision/srt) library and utils.

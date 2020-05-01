@@ -28,6 +28,8 @@ echo "Building '${TAG}' ... "
 docker build -f Dockerfile.${BASE_IMAGE} . \
     --no-cache \
     -t "$TAG" \
+    --build-arg VCS_URL=${VCS_URL} \
+    --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg VERSION=$VERSION_ARG \
     --build-arg DOWNLOAD_URL=$DOWNLOAD_URL_ARG
 echo "Done"
@@ -38,7 +40,7 @@ EXTRA_TAGS=${EXTRA_TAGS:-}
 for extra_tag in ${EXTRA_TAGS//;/$'\n'}
 do
     if [ "$extra_tag" ]; then
-        docker tag $image_id "${IMAGE}:${BASE_IMAGE}-${extra_tag}"
+        docker tag "$image_id" "${IMAGE}:${BASE_IMAGE}-${extra_tag}"
         echo "Added tag '${IMAGE}:${BASE_IMAGE}-${extra_tag}'"
     fi
 done

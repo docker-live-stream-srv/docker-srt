@@ -33,6 +33,11 @@ RUN chmod +x /tmp/compile.sh && \
 ###############################
 FROM debian:10
 
+ARG VCS_REF=""
+ARG VCS_URL=""
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url=$VCS_URL
+
 ENV PREFIX=/opt/srt
 ENV PATH=$PREFIX/bin:$PATH
 ENV LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
