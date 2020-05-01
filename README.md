@@ -1,5 +1,8 @@
 # SRT library Docker image
 
+[![Build Status](https://travis-ci.org/docker-live-stream-srv/docker-srt.svg?branch=master)](https://travis-ci.org/docker-live-stream-srv/docker-srt)
+
+
 Docker image of [Haivision/srt](https://github.com/Haivision/srt) library and utils.
 
 This image can be used as base to build an app using SRT library.
