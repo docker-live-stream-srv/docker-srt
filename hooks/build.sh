@@ -28,6 +28,8 @@ echo "Building '${TAG}' ... "
 docker build -f Dockerfile.${BASE_IMAGE} . \
     --no-cache \
     -t "$TAG" \
+    --build-arg VCS_URL=${VCS_URL}
+    --build-arg VCS_REF=`git rev-parse --short HEAD`
     --build-arg VERSION=$VERSION_ARG \
     --build-arg DOWNLOAD_URL=$DOWNLOAD_URL_ARG
 echo "Done"
