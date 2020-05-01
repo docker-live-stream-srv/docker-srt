@@ -3,6 +3,7 @@ services: docker
 
 env:
   global:
+    - VCS_URL=https://github.com/docker-live-stream-srv/docker-srt
     - IMAGE=livestreamsrv/srt
   matrix:
     - BASE_IMAGE="alpine" VERSION=1.3.4 EXTRA_TAGS="1.3"
