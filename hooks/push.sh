@@ -20,12 +20,13 @@ for current_tag in ${ALL_TAGS//;/$'\n'}
 do
     # Skip empty values
     if [ "$current_tag" ]; then
-        echo "Pushing tag '${IMAGE}:${BASE_IMAGE}-${current_tag}' ..."
-        docker push  "${IMAGE}:${BASE_IMAGE}-${current_tag}"
+        full_tag="${BASE_IMAGE}-${current_tag}"
+        echo "Pushing tag '$full_tag' ..."
+        docker push  "$full_tag"
 
         # If tag="alpine-latest", push to "latest" too
-        if [ "${BASE_IMAGE}-${current_tag}" = "alpine-latest" ]; then
-            image_id=$(docker images $current_tag --format "{{.ID}}")
+        if [ "$full_tag" = "alpine-latest" ]; then
+            image_id=$(docker images $full_tag --format "{{.ID}}")
             docker tag "$image_id" "${IMAGE}:latest"
             echo "Added tag '${IMAGE}:latest'"
             echo "Pushing tag '${IMAGE}:latest' ..."
