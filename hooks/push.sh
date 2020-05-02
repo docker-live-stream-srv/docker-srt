@@ -20,7 +20,7 @@ for current_tag in ${ALL_TAGS//;/$'\n'}
 do
     # Skip empty values
     if [ "$current_tag" ]; then
-        full_tag="${BASE_IMAGE}-${current_tag}"
+        full_tag="${IMAGE}:${BASE_IMAGE}-${current_tag}"
         echo "Pushing tag '$full_tag' ..."
         docker push  "$full_tag"
 
